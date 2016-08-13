@@ -1,0 +1,4 @@
+App Key£º1801301815
+App Secret£º99b499dd4730fcb34135c19ef59cebe3
+AppName: AprilKK
+Account review£ºhttp://open.weibo.com/apps/1801301815/info/basic?action=review 
