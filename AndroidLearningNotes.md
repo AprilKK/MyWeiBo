@@ -26,3 +26,38 @@ Inside the Activity,there are some Views to show the data to user and receive th
 * int resource:usually an xml file that defines the view used to display on every row.
 * string[] from:the keys in the map that will be mapping to the resources id.
 * int[] to:the resources id that receive the values in the map.
+
+**Volley**
+*DownLoad*
+ * Git clone https://Android.googlesource.com/platform/frameworks/volley 
+or https://github.com/mcxiaoke/android-volley
+
+*Import Volley to the project*
+ * add ``` <uses-permissionandroid:name="android.permission.INTERNET"/>``` to AndroidManifest.xml
+ * import this modue to the project following the below steps:
+	* File->New->New Module
+	* select the "Import Gradle Project"
+	* enter the project source directory, always be the folder where build.gradle loacted in. 
+	* edit settings.gradle, adding ```include ':app', ':android-volley'
+project(':android-volley').projectDir = new File('Library/android-volley')```
+	* edit build.gradle under app module, adding ``` compile project(':android-volley')```
+	* sync gradle to rebuild the project
+	* import the com.android.volley.\*\*\* to use
+	
+*How to Use*
+ * ``` RequestQueue mResQueue = Volley.newRequestQueue(this);```
+ * ```
+StringRequest mStringRes = new StringRequest("http://www.weather.com.cn/data/cityinfo/101010100.html",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("TAG", response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", error.getMessage(), error);
+            }
+        });```
+  ```mResQueue.add(mStringRes);```
+ * always be three steps:new a Request Queue(one for one activity),create Request, add the Request to the Queue.
