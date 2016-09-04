@@ -58,7 +58,7 @@ public class WBAuthActivity extends Activity {
         // 创建微博实例
         //mWeiboAuth = new WeiboAuth(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         // 快速授权时，请不要传入 SCOPE，否则可能会授权不成功
-        mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, /*Constants.SCOPE*/"");
+        mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         mSsoHandler = new SsoHandler(WBAuthActivity.this, mAuthInfo);
 
         // SSO 授权, 仅Web

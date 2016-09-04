@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".WBAuthActivity" />
         <activity android:name=".ContentActivity"/>
+        <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" > </activity>
     </application>
 
 </manifest>
