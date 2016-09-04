@@ -5,4 +5,22 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <!-- weibo related string values-->
+    <string name="weibosdk_demo_toast_auth_success">Auth Sucess</string>
+    <string name="weibosdk_demo_toast_auth_failed">Auth Failed</string>
+    <string name="weibosdk_demo_toast_auth_canceled">Auth Canceled</string>
+    <string name="weibosdk_demo_token_has_existed">Token is still valid, no need to re log in</string>
+    <string name="weibosdk_demo_token_to_string_format_1">Token：%1$s \nValidDuration：%2$s</string>
+    <string name="weibosdk_demo_obtain_token_via_sso_all_in_one">SSO Auth（ALL IN ONE）</string>
+    <string name="weibosdk_demo_obtain_token_via_web">SSO Auth(Web)</string>
+    <string name="weibosdk_demo_obtain_token_via_sso">SSO Auth(client only)</string>
+    <string name="weibosdk_demo_obtain_token_via_mobile">mobile message</string>
+    <string name="weibosdk_demo_obtain_token_via_signature">Web Auth</string>
+    <string name="weibosdk_demo_obtain_token_via_quick_sso">quickly auth via weibo client</string>
+    <string name="weibosdk_demo_obtain_token_via_code">get token via code</string>
+    <string name="weibosdk_demo_obtain_token_logout">user log out</string>
+    <string name="weibosdk_demo_token_info">Token info:</string>
+    <string name="weibosdk_demo_obtain_token_hint"><b>please note:</b>\nHelloworld</string>
+    <string name="weibosdk_demo_obtain_token_via_sso_hint">Auth2.0</string>
+    <string name="weibosdk_demo_feature_oauth">weibo Auth</string>
 </resources>
