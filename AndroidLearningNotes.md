@@ -20,6 +20,7 @@ Inside the Activity,there are some Views to show the data to user and receive th
 **SimpleAdaptor**
 *Description*
  * An easy adapter to map static data to views defined in an XML file. You can specify the data backing the list as an ArrayList of Maps. Each entry in the ArrayList corresponds to one row in the list. The Maps contain the data for each row. You also specify an XML file that defines the views used to display the row, and a mapping from keys in the Map to specific views.
+
 *Interface/Parameters*
 * Context: the runtime of the views in SimpleAdapter, usually be the current Activity,namely "this".
 * List&lt;Map&lt;String,T>>:this is a list comprised map. every element in the list binds to a view in the ListView. the "keys" in map mapping to the R.id.&lt;itemname> in the xml file, and the values in map mapping to the items value.
@@ -27,6 +28,13 @@ Inside the Activity,there are some Views to show the data to user and receive th
 * string[] from:the keys in the map that will be mapping to the resources id.
 * int[] to:the resources id that receive the values in the map.
 
+**StartActivity**
+*Description*
+
+*Interface/Parameters*
+
+*note*
+to use the StartActivity API, we have to add the target Activity to the AndroidManifest.xml, otherwise, nobody could start this Activity anymore in the future.
 **Volley**
 *DownLoad*
  * Git clone https://Android.googlesource.com/platform/frameworks/volley 
@@ -37,13 +45,13 @@ or https://github.com/mcxiaoke/android-volley
  * import this modue to the project following the below steps:
 	* File->New->New Module
 	* select the "Import Gradle Project"
-	* enter the project source directory, always be the folder where build.gradle loacted in. 
+	* enter the project source directory, always be the folder where build.gradle loacted in.
 	* edit settings.gradle, adding ```include ':app', ':android-volley'
 project(':android-volley').projectDir = new File('Library/android-volley')```
 	* edit build.gradle under app module, adding ``` compile project(':android-volley')```
 	* sync gradle to rebuild the project
 	* import the com.android.volley.\*\*\* to use
-	
+
 *How to Use*
  * ``` RequestQueue mResQueue = Volley.newRequestQueue(this);```
  * ```
@@ -62,45 +70,58 @@ StringRequest mStringRes = new StringRequest("http://www.weather.com.cn/data/cit
   ```mResQueue.add(mStringRes);```
  * always be three steps:new a Request Queue(one for one activity),create Request, add the Request to the Queue.
 
-##Git 
+##Git
 
-*Teaching*
+**Teaching**
 http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
 
-*add remote branch*
+**add remote branch**
 http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013752340242354807e192f02a44359908df8a5643103a000
-*revert to the previous branch history"
-【本地代码库回滚】：
 
-git reset --hard commit-id :回滚到commit-id，讲commit-id之后提交的commit都去除
+**revert to the previous branch history**
+++revert local depository++
+`git reset --hard commit-id` //revert to the specific commit version, all the commits behind the commit-id will be dropped.
 
-git reset --hard HEAD~3：将最近3次的提交回滚
+`git reset --hard HEAD~3` //revert the latest 3 commits.
 
-【远程代码库回滚】：
+++revert remote depository++
+in some words: delete remote branch and re-push the reverted local branch to it.
+steps:
+ 1. `git checkout the_branch`
 
-这个是重点要说的内容，过程比本地回滚要复杂
+ 2. `git pull` //get the latest code change from server
 
-应用场景：自动部署系统发布后发现问题，需要回滚到某一个commit，再重新发布
+ 3. `git branch` the_branch_backup //backup this branch
 
-原理：先将本地分支退回到某个commit，删除远程分支，再重新push本地分支
+ 4. `git reset --hard the_commit_id` //revert the branch to the specific commit version
 
-操作步骤：
+ 5. `git push origin :the_branch` //delete the remote branch
 
-1、git checkout the_branch
+ 6. `git push origin the_branch` //push the reverted branch code to the remote server
 
-2、git pull
+ 7. `git push origin :the_branch_backup` //now we could delete the backup depository
 
-3、git branch the_branch_backup //备份一下这个分支当前的情况
+*how to deal with conflict when there is some changes which do no want to commit to the branch*
 
-4、git reset --hard the_commit_id //把the_branch本地回滚到the_commit_id
+**stash**
+*steps:*
+ 1. `git stash` //backup the work directory to git stack. and read out the content from the latest commit version to keep sync with the latest commit.
 
-5、git push origin :the_branch //删除远程 the_branch
+*related cmd*
 
-6、git push origin the_branch //用回滚后的本地分支重新建立远程分支
+`git stash pop` //read out the content from git stack to restore the work directory.
 
-7、git push origin :the_branch_backup //如果前面都成功了，删除这个备份分支
+`git stash list` //to list all the content in git stack, could be used to check the restore point.
+`git stash clear` //clear git stack
+
 ##Weibo API/SDK
-*What is OAuth 2.0*
+**What is OAuth 2.0**
 http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html
-*Reference*
+
+**how to import to the project**
+1. copy weiboSDKCore_3.1.4.jar to the Libary folder
+2. in AS, right click on the xxx.jar file, and choose "Add as Library"
+3. use import xxx to include the related package to the project.
+
+*SDK use Reference*
 http://blog.csdn.net/wwj_748/article/details/9566969
