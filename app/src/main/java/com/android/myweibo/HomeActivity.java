@@ -18,15 +18,24 @@ public class HomeActivity extends Activity
         this.findViewById(R.id.ContentActivityButton).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,ContentActivity.class));
+                startActivity(new Intent(HomeActivity.this, ContentActivity.class));
             }
         });
+
         // 微博授权功能
        this.findViewById(R.id.feature_oauth).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, WBAuthActivity.class));
+            }
+        });
+        
+        //Start ReadWeibo Activity
+        this.findViewById(R.id.ReadWeiboActivityButton).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this,ReadWeiboActivity.class));
             }
         });
     }

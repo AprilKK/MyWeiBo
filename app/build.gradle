@@ -25,7 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.android.support:design:23.1.0'
-    compile files('C:/Users/Duke/Desktop/MyWeiBo/Library/weiboSDKCore_3.1.4.jar')
     compile files('C:/Users/Duke/Desktop/MyWeiBo/Library/android-support-v4.jar')
     compile project(':weiboSDKAPI')
 }
