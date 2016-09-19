@@ -9,7 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,9 +35,13 @@ public class ReadWeiboActivity extends Activity  {
     private static final String TAG = ReadWeiboActivity.class.getName();
 
     /** UI 元素：ListView */
-    private ListView mFuncListView;
-    /** 功能列表 */
-    private String[] mFuncList;
+    private ListView mWeiboTimeLineListView;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private TimeLineAdapter mAdpter;
+
+    private StatusList mList;
     /** 当前 Token 信息 */
     private Oauth2AccessToken mAccessToken;
     /** 用于获取微博信息流等操作的API */
@@ -49,14 +55,11 @@ public class ReadWeiboActivity extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.readweibo_list);
 
-/*        // 获取功能列表
-        mFuncList = getResources().getStringArray(R.array.statuses_func_list);
-        // 初始化功能列表 ListView
-        mFuncListView = (ListView)findViewById(R.id.api_func_list);
-        mFuncListView.setAdapter(new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, mFuncList));
-        mFuncListView.setOnItemClickListener(this);*/
 
+        // 初始化功能列表 ListView
+        mWeiboTimeLineListView = (ListView)findViewById(R.id.api_func_list);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swiperefreshlayout);
         // 获取当前已保存过的 Token
         mAccessToken = AccessTokenKeeper.readAccessToken(this);
         // 对statusAPI实例化
@@ -141,13 +144,19 @@ public class ReadWeiboActivity extends Activity  {
             if (!TextUtils.isEmpty(response)) {
                 LogUtil.i(TAG, response);
                 if (response.startsWith("{\"statuses\"")) {
-                    // 调用 StatusList#parse 解析字符串成微博列表对象
-                    StatusList statuses = StatusList.parse(response);
-                    if (statuses != null && statuses.total_number > 0) {
-                        Toast.makeText(ReadWeiboActivity.this,
-                                "获取微博信息流成功, 条数: " + statuses.statusList.size(),
-                                Toast.LENGTH_LONG).show();
+                   // 调用 StatusList#parse 解析字符串成微博列表对象
+
+                    mList = StatusList.parse(response);
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    //mSwipeRefreshLayout.setLoading(false);
+                    Log.i("sdf", mList.toString());
+                    if (mList != null && mList.total_number > 0) {
+                        // mTimeLineDao.add(mList.statusList);
+                        mAdpter = new TimeLineAdapter(ReadWeiboActivity.this, mList);
+                        //mWeiboTimeLineListView.setAdapter(mAdpter);
                     }
+                    mSwipeRefreshLayout.setRefreshing(false);
+                   // mSwipeRefreshLayout.setLoading(false);
                 } else if (response.startsWith("{\"created_at\"")) {
                     // 调用 Status#parse 解析字符串成微博对象
                     Status status = Status.parse(response);
