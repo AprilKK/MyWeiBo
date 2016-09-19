@@ -5,3 +5,5 @@
 .DS_Store
 /build
 /captures
+/MyWeiBo/build/*
+../MyWeiBo/build/*

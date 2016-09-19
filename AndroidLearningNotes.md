@@ -125,3 +125,5 @@ http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html
 
 *SDK use Reference*
 http://blog.csdn.net/wwj_748/article/details/9566969
+*UI ListView display WeiboTimeline*
+http://blog.csdn.net/u011388551/article/details/51815400
