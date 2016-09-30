@@ -70,6 +70,26 @@ StringRequest mStringRes = new StringRequest("http://www.weather.com.cn/data/cit
   ```mResQueue.add(mStringRes);```
  * always be three steps:new a Request Queue(one for one activity),create Request, add the Request to the Queue.
 
+**ImageLoader**
+
+ * add ``` <uses-permissionandroid:name="android.permission.INTERNET"/>``` to AndroidManifest.xml
+ * add ``` <uses-permissionandroid:name="android.permission.WRITE_EXTERNAL_STORAGE"/>``` to AndroidManifest.xml
+ * import the package to java project ```import com.nostra13.universalimageloader.core.ImageLoader;```
+ * init imageloader 
+```ImageLoaderConfiguration config =ImageLoaderConfiguration.createDefault(context);
+    ImageLoader.getInstance().init(config);```
+ * ImageOptions
+ ```
+DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.ic_default_image)
+            .showImageOnFail(R.drawable.ic_default_image)
+            .bitmapConfig(Bitmap.Config.ARGB_8888).cacheInMemory(true)
+            .cacheOnDisk(true).build();```
+ * using DisplayImage
+```
+ImageLoader.getInstance().displayImage(mStatus.user.avatar_hd/*<image url>*/,
+                viewHolder.roundImageView/*<view to show the image>*/, options);
+```
 ##Git
 
 **Teaching**
@@ -125,5 +145,3 @@ http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html
 
 *SDK use Reference*
 http://blog.csdn.net/wwj_748/article/details/9566969
-*UI ListView display WeiboTimeline*
-http://blog.csdn.net/u011388551/article/details/51815400
