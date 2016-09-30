@@ -22,8 +22,14 @@ import android.widget.Toast;
 import com.jaeger.ninegridimageview.NineGridImageView;
 import com.jaeger.ninegridimageview.NineGridImageViewAdapter;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
@@ -137,7 +143,7 @@ public class TimeLineAdapter extends BaseAdapter {
         }
         viewHolder.tv_time.setText(time + " " + from);
         //TODO April-->next time 1. to find the WeiboAutolinkUtil
-        viewHolder.tv_content.setText("");
+        viewHolder.tv_content.setText(mStatus.text);
         if (mStatus.retweeted_status != null) {
             viewHolder.tv_reContent.setVisibility(View.VISIBLE);
             viewHolder.view_line.setVisibility(View.VISIBLE);
@@ -220,7 +226,7 @@ public class TimeLineAdapter extends BaseAdapter {
         viewHolder.tv_repost.setText(mStatus.reposts_count + "");
         viewHolder.tv_comment.setText(mStatus.comments_count + "");
 
-        viewHolder.rly_content.setOnClickListener(new OnClickListener() {
+        /*viewHolder.rly_content.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -239,8 +245,8 @@ public class TimeLineAdapter extends BaseAdapter {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(mContext, HomeActivity.class);//TODO April-->next time 1. need to implements an activity to show user infomation
                 //TODO April-->next time 1. need to understand the below two sentences.
-/*                MyApplication.getInstance().setUser(mStatus.user);
-                MyApplication.getInstance().setStatus(mStatus);*/
+*//*                MyApplication.getInstance().setUser(mStatus.user);
+                MyApplication.getInstance().setStatus(mStatus);*//*
                 intent.putExtra("From", "MainActivity");
                 mContext.startActivity(intent);
             }
@@ -251,8 +257,8 @@ public class TimeLineAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(mContext, HomeActivity.class);//TODO　April-->next time 1, need to implement an activit to show publish info
-/*                MyApplication.getInstance().setStatus(mStatus);
-                intent.putExtra(Constants.KEY_TYPE, Constants.COMMENTS);*/
+*//*                MyApplication.getInstance().setStatus(mStatus);
+                intent.putExtra(Constants.KEY_TYPE, Constants.COMMENTS);*//*
                 mContext.startActivity(intent);
             }
         });
@@ -263,8 +269,8 @@ public class TimeLineAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(mContext, HomeActivity.class);//TODO　April-->next time 1, need to implement an activit to show publish info
-/*                MyApplication.getInstance().setStatus(mStatus);
-                intent.putExtra(Constants.KEY_TYPE, Constants.REPOST);*/
+*//*                MyApplication.getInstance().setStatus(mStatus);
+                intent.putExtra(Constants.KEY_TYPE, Constants.REPOST);*//*
                 mContext.startActivity(intent);
             }
         });
@@ -272,7 +278,7 @@ public class TimeLineAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {//TODO April--next time 1. need to uncomment this block.
-/*                // TODO Auto-generated method stub
+*//*                // TODO Auto-generated method stub
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                         mContext, R.layout.item_replay_comments);
 
@@ -310,11 +316,11 @@ public class TimeLineAdapter extends BaseAdapter {
                         dialog.dismiss();
                     }
                 });
-                dialog.show();*/
+                dialog.show();*//*
 
             }
 
-        });
+        });*/
         return convertView;
     }
 

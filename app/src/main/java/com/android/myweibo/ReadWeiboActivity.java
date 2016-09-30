@@ -5,6 +5,7 @@ package com.android.myweibo;
  */
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.android.myweibo.AccessTokenKeeper;
 import com.android.myweibo.Constants;
@@ -30,6 +38,8 @@ import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 import com.sina.weibo.sdk.utils.LogUtil;
+
+import java.io.File;
 
 public class ReadWeiboActivity extends Activity  {
     private static final String TAG = ReadWeiboActivity.class.getName();
@@ -54,7 +64,7 @@ public class ReadWeiboActivity extends Activity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.readweibo_list);
-
+        initImageLoader(getApplicationContext());
 
         // 初始化功能列表 ListView
         mWeiboTimeLineListView = (ListView)findViewById(R.id.api_func_list);
@@ -73,6 +83,11 @@ public class ReadWeiboActivity extends Activity  {
                     Toast.LENGTH_LONG).show();
             }
         }
+    private void initImageLoader(Context context) {
+        // TODO Auto-generated method stub
+        ImageLoaderConfiguration config =  ImageLoaderConfiguration.createDefault(context);
+        ImageLoader.getInstance().init(config);
+    }
 
 /*    *//**
      * @see {@link AdapterView.OnItemClickListener#onItemClick}
@@ -153,7 +168,7 @@ public class ReadWeiboActivity extends Activity  {
                     if (mList != null && mList.total_number > 0) {
                         // mTimeLineDao.add(mList.statusList);
                         mAdpter = new TimeLineAdapter(ReadWeiboActivity.this, mList);
-                        //mWeiboTimeLineListView.setAdapter(mAdpter);
+                        mWeiboTimeLineListView.setAdapter(mAdpter);
                     }
                     mSwipeRefreshLayout.setRefreshing(false);
                    // mSwipeRefreshLayout.setLoading(false);
