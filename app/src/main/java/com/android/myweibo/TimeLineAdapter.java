@@ -6,6 +6,7 @@ package com.android.myweibo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,6 +39,12 @@ import com.sina.weibo.sdk.openapi.models.FavoriteList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 public class TimeLineAdapter extends BaseAdapter {
 
     private FavoritesAPI mFavouritesAPI;
@@ -49,17 +56,17 @@ public class TimeLineAdapter extends BaseAdapter {
      * 微博信息列表
      */
     private StatusList mStatusList = new StatusList();
-
+    private ArrayList<StatusList> mStatusListList = new ArrayList<StatusList>();
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ic_default_image)
             .showImageOnFail(R.drawable.ic_default_image)
             .bitmapConfig(Bitmap.Config.ARGB_8888).cacheInMemory(true)
             .cacheOnDisk(true).build();
 
-    public TimeLineAdapter(Context context, StatusList list) {
+    public TimeLineAdapter(Context context/*, StatusList list*/) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mStatusList = list;
+        //mStatusList = list;
         mAccessToken = AccessTokenKeeper.readAccessToken(context);
         mFavouritesAPI = new FavoritesAPI(context, Constants.APP_KEY,
                 mAccessToken);
@@ -68,15 +75,23 @@ public class TimeLineAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mStatusList.statusList == null ? 0 : mStatusList.statusList
-                .size();
+        //return mStatusList.statusList == null ? 0 : mStatusList.statusList.size();
+
+        int numOfmStatusList = mStatusListList.size();
+        int numOfCount = 0;
+        for(int i=0;i<numOfmStatusList;i++)
+        {
+            numOfCount = numOfCount + mStatusListList.get(i).statusList.size();
+        }
+        return numOfCount;
     }
 
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
-        return mStatusList == null ? null : mStatusList.statusList
-                .get(position);
+        int index = position / 10;
+        //return mStatusList == null ? null : mStatusList.statusList.get(position);
+        return mStatusListList.get(index).statusList.get(position % 10);
     }
 
     @Override
@@ -88,6 +103,7 @@ public class TimeLineAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
+        int index = position / 10;
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.weibo_item_listview, parent,
@@ -127,7 +143,7 @@ public class TimeLineAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        final Status mStatus = mStatusList.statusList.get(position);
+        final Status mStatus = mStatusListList.get(index).statusList.get(position % 10);
 
         ImageLoader.getInstance().displayImage(mStatus.user.avatar_hd,
                 viewHolder.roundImageView, options);
@@ -322,6 +338,10 @@ public class TimeLineAdapter extends BaseAdapter {
 
         });*/
         return convertView;
+    }
+    public void addStatusList(StatusList item)
+    {
+        mStatusListList.add(item);
     }
 
     class ViewHolder {

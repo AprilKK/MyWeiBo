@@ -1,2 +1,2 @@
-include ':app'
-include ':weiboSDKAPI'
+include ':app', ':weibosdkapi'
+project(':weibosdkapi').projectDir = new File('Library/weiboSDKAPI')

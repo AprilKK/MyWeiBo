@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyWeiBo.iml" filepath="$PROJECT_DIR$/MyWeiBo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weiboSDKAPI/weiboSDKAPI.iml" filepath="$PROJECT_DIR$/weiboSDKAPI/weiboSDKAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library/weiboSDKAPI/weibosdkapi.iml" filepath="$PROJECT_DIR$/Library/weiboSDKAPI/weibosdkapi.iml" />
     </modules>
   </component>
 </project>
